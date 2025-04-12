@@ -93,26 +93,28 @@ def clean_reward_data(raw_text):
 
 # ----- Part 3: Main workflow -----
 def main():
-    url = "https://www.americanexpress.com/us/credit-cards/card/blue-cash-everyday/"
-    print("Scraping raw text from:", url)
-    raw_text = get_raw_page_text(url)
-    
-    print("\nCleaning and extracting reward details...\n")
-    rewards = clean_reward_data(raw_text)
-    
-    if rewards:
-        print("Extracted Rewards:")
-        for reward in rewards:
-            print(f"Category/Company: {reward['category']}")
-            print(f"Reward Percent: {reward['reward_percent']}%")
-            if reward["limit"]:
-                print(f"Spending Limit: ${reward['limit']}")
-            else:
-                print("Spending Limit: Not specified")
-            print("Full text:", reward["full_text"])
-            print("-----")
-    else:
-        print("No reward data extracted. Check your regex patterns or raw text content.")
+    urls = ["https://www.americanexpress.com/us/credit-cards/card/blue-cash-everyday/"]
+
+    for url in urls:
+        print("Scraping raw text from:", url)
+        raw_text = get_raw_page_text(url)
+        
+        print("\nCleaning and extracting reward details...\n")
+        rewards = clean_reward_data(raw_text)
+        
+        if rewards:
+            print("Extracted Rewards:")
+            for reward in rewards:
+                print(f"Category/Company: {reward['category']}")
+                print(f"Reward Percent: {reward['reward_percent']}%")
+                if reward["limit"]:
+                    print(f"Spending Limit: ${reward['limit']}")
+                else:
+                    print("Spending Limit: Not specified")
+                print("Full text:", reward["full_text"])
+                print("-----")
+        else:
+            print("No reward data extracted. Check your regex patterns or raw text content.")
 
 if __name__ == "__main__":
     main()
